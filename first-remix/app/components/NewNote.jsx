@@ -1,8 +1,19 @@
+import {
+    Form,
+    useActionData,
+    useTransition as useNavigation,
+} from '@remix-run/react';
 import styles from '~/components/NewNote.css';
 
 export default function NewNote() {
+    const navigation = useNavigation();
+    const data = useActionData();
+
+    const isSubmitting = navigation.state === 'submitting';
+
     return (
-        <form id='note-form' method='post'>
+        <Form id='note-form' method='post'>
+            {data?.message && <p>{data.message}</p>}
             <p>
                 <label htmlFor='title'>Title</label>
                 <input
@@ -22,9 +33,11 @@ export default function NewNote() {
                 />
             </p>
             <div className='form-actions'>
-                <button>Add Note</button>
+                <button disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting' : 'Add Note'}
+                </button>
             </div>
-        </form>
+        </Form>
     );
 }
 
