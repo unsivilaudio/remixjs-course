@@ -74,14 +74,14 @@ export function CatchBoundary() {
     );
 }
 
-// export function ErrorBoundary({ error }) {
-//     return (
-//         <main className='error'>
-//             <h1>An Error Related To Your Notes Occured!</h1>
-//             <p>{error.message}</p>
-//             <p>
-//                 Back to <Link to='/'>Safety?</Link>
-//             </p>
-//         </main>
-//     );
-// }
+export function ErrorBoundary({ error }) {
+    return (
+        <main className='error'>
+            <h1>An Error Related To Your Notes Occured!</h1>
+            <p>{error.message}</p>
+            <p>
+                Back to <Link to='/'>Safety?</Link>
+            </p>
+        </main>
+    );
+}
