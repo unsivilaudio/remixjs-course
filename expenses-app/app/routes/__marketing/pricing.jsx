@@ -43,4 +43,17 @@ export default function PricingPage() {
     );
 }
 
-export function meta() {}
+export function meta() {
+    return {
+        title: 'Pricing Plans',
+        description: 'Get started today with affordable plans for everyone.',
+    };
+}
+
+export function headers({ actionHeaders, loaderHeaders, parentHeaders }) {
+    return {
+        'Cache-Control': parentHeaders.get('Cache-Control'),
+    };
+}
+
+export const handle = { disableJS: true };
