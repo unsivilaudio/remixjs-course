@@ -3,7 +3,6 @@ import { Link, Outlet, useLoaderData } from '@remix-run/react';
 import { FaDownload, FaPlus } from 'react-icons/fa';
 import ExpensesList from '~/components/expenses/ExpensesList';
 import { getExpenses } from '~/data/expenses.server';
-import expensesStyles from '~/styles/expenses.css';
 
 export default function ExpensesLayout() {
     const expenses = useLoaderData() || [];
@@ -45,10 +44,6 @@ export async function loader() {
     //         { status: 404, statusText: 'No Expenses Found' }
     //     );
     // }
-}
-
-export function links() {
-    return [{ rel: 'stylesheet', href: expensesStyles }];
 }
 
 // export function CatchBoundary() {

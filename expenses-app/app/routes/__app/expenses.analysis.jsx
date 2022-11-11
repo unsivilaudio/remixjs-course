@@ -1,32 +1,21 @@
+import { useLoaderData } from 'public/build/_shared/chunk-NA56Z7W5';
 import Chart from '~/components/expenses/Chart';
 import ExpenseStatistics from '~/components/expenses/ExpenseStatistics';
+import { getExpenses } from '~/data/expenses.server';
 
-const DUMMY_EXPENSES = [
-    {
-        id: 'e1',
-        title: 'First Expense',
-        amount: 12.99,
-        date: new Date().toISOString(),
-    },
-    {
-        id: 'e2',
-        title: 'Second Expense',
-        amount: 25.49,
-        date: new Date().toISOString(),
-    },
-    {
-        id: 'e3',
-        title: 'Third Expense',
-        amount: 49.99,
-        date: new Date().toISOString(),
-    },
-];
+export default function ExpensesAnalysisPage() {
+    const expenses = useLoaderData() || [];
 
-export default function ExpensesAnalysisPAge() {
+    console.log(expenses);
+
     return (
         <main>
-            <Chart expenses={DUMMY_EXPENSES} />
-            <ExpenseStatistics expenses={DUMMY_EXPENSES} />
+            <Chart expenses={expenses} />
+            <ExpenseStatistics expenses={expenses} />
         </main>
     );
+}
+
+export async function loader() {
+    return getExpenses();
 }

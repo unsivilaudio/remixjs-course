@@ -8,16 +8,21 @@ import {
 } from '@remix-run/react';
 
 function ExpenseForm() {
-    const today = new Date().toISOString().slice(0, 10); // yields something like 2023-09-10
     const validationErrors = useActionData();
     // const expenseData = useLoaderData();
     const params = useParams();
     const matches = useMatches();
+    const navigation = useNavigation();
+
+    const today = new Date().toISOString().slice(0, 10); // yields something like 2023-09-10
     const expenses = matches.find(
         match => match.id === 'routes/__app/expenses'
     ).data;
     const expenseData = expenses.find(exp => exp.id === params.id);
-    const navigation = useNavigation();
+
+    if (params.id && !expenseData) {
+        return <p>Invalid expense id.</p>;
+    }
 
     const defaultValues = expenseData
         ? {
