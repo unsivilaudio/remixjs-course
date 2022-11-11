@@ -1,4 +1,6 @@
 import AuthForm from '~/components/auth/AuthForm';
+import { login, signup } from '~/data/auth.server';
+import { validateCredentials } from '~/data/validation.server';
 import authStyles from '~/styles/auth.css';
 
 export default function AuthPage() {
@@ -12,8 +14,22 @@ export async function action({ request }) {
     const formData = await request.formData();
     const credentials = Object.fromEntries(formData);
 
-    if (authMode === 'login') {
-    } else {
+    try {
+        validateCredentials(credentials);
+    } catch (error) {
+        return error;
+    }
+
+    try {
+        if (authMode === 'login') {
+            return await login(credentials);
+        } else {
+            return await signup(credentials);
+        }
+    } catch (error) {
+        if (error.status === 422) {
+            return { credentials: error.message };
+        }
     }
 }
 

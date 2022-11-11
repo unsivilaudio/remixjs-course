@@ -1,5 +1,6 @@
 import {
     Link,
+    useActionData,
     useSearchParams,
     useTransition as useNavigation,
 } from '@remix-run/react';
@@ -9,6 +10,7 @@ function AuthForm() {
     const navigation = useNavigation();
     const [searchParams] = useSearchParams();
     const authMode = searchParams.get('mode') || 'login';
+    const validationErrors = useActionData();
 
     const isSubmitting = navigation.state !== 'idle';
 
@@ -43,6 +45,13 @@ function AuthForm() {
                     minLength={7}
                 />
             </p>
+            {validationErrors && (
+                <ul>
+                    {Object.values(validationErrors).map(val => (
+                        <li key={val}>{val}</li>
+                    ))}
+                </ul>
+            )}
             <div className='form-actions'>
                 <button disabled={isSubmitting}>{submitBtnCaption}</button>
                 <Link to={`?mode=${authMode === 'login' ? 'signup' : 'login'}`}>
